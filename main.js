@@ -1,6 +1,28 @@
 $(document).ready(function () {
-	calculateFizzBuzz(100);
+
+	$(".inputButton").on("click", function(){
+		var limit = $(".inputText").val();
+		var limitToInteger = +limit;
+
+		 if(isNaN(limitToInteger)) {
+ 			reportError(limit)
+		 }  else if(isDecimal(limitToInteger)) {
+		 	reportError(limit)
+		 }
+		 else {
+		 	$('.errorsList').hide();
+		 	calculateFizzBuzz(limitToInteger);
+		 }
+
+		});
+	
 });
+
+function reportError(errorVal){
+	$('.errorsList').show();
+	$('.errorsList').empty();
+	$('.errorsList').append($("<li>"+errorVal+" is not a valid input. Please enter an integer.</li>"))
+}
 
 function calculateFizzBuzz(number) {
 	var $list = $('.list');
@@ -19,4 +41,8 @@ function calculateFizzBuzz(number) {
 			$list.append($("<li>"+i+"</li>"))
 		}
 	}
+}
+
+function isDecimal(limitToInteger){
+	return (limitToInteger - Math.floor(limitToInteger)) != 0
 }
